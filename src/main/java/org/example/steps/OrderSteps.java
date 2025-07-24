@@ -2,6 +2,7 @@ package org.example.steps;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
+import org.example.config.Endpoints;
 import org.example.model.Order;
 
 import static io.restassured.RestAssured.given;
@@ -13,7 +14,7 @@ public class OrderSteps {
         return given()
                 .body(order)
                 .when()
-                .post("/api/v1/orders")
+                .post(Endpoints.Order.CREATE)
                 .then();
     }
 
@@ -21,7 +22,7 @@ public class OrderSteps {
     public ValidatableResponse getOrdersList() {
         return given()
                 .when()
-                .get("/api/v1/orders")
+                .get(Endpoints.Order.LIST)
                 .then();
     }
 
@@ -30,7 +31,7 @@ public class OrderSteps {
         return given()
                 .body("{\"track\": \"" + trackId + "\"}")
                 .when()
-                .put("/api/v1/orders/cancel")
+                .put(Endpoints.Order.CANCEL)
                 .then();
     }
 }

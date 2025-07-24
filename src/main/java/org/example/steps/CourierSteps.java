@@ -2,6 +2,7 @@ package org.example.steps;
 
 import io.qameta.allure.Step;
 import io.restassured.response.ValidatableResponse;
+import org.example.config.Endpoints;
 import org.example.model.Courier;
 
 import static io.restassured.RestAssured.given;
@@ -13,7 +14,7 @@ public class CourierSteps {
         return given()
                 .body(courier)
                 .when()
-                .post("/api/v1/courier")
+                .post(Endpoints.Courier.CREATE)
                 .then();
     }
 
@@ -22,7 +23,7 @@ public class CourierSteps {
         return given()
                 .body(courier)
                 .when()
-                .post("/api/v1/courier/login")
+                .post(Endpoints.Courier.LOGIN)
                 .then();
 
     }
@@ -32,7 +33,7 @@ public class CourierSteps {
         return given()
                 .pathParams("id", courier.getId())
                 .when()
-                .delete("/api/v1/courier/{id}")
+                .delete(Endpoints.Courier.DELETE)
                 .then();
     }
 }
