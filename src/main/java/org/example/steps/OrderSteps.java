@@ -24,4 +24,14 @@ public class OrderSteps {
                 .get("/api/v1/orders")
                 .then();
     }
+
+    @Step("Отмена заказа")
+    public ValidatableResponse cancelOrder(String trackId) {
+        return given()
+                .body("{\"track\": \"" + trackId + "\"}")
+                .when()
+                .put("/api/v1/orders/cancel")
+                .then();
+    }
 }
+
