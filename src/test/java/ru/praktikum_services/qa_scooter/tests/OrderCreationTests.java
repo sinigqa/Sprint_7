@@ -1,5 +1,6 @@
 package ru.praktikum_services.qa_scooter.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.example.model.Order;
 import org.junit.After;
@@ -35,6 +36,7 @@ public class OrderCreationTests extends BaseTest {
 
     @Test
     @DisplayName("Создание заказа с разными цветами")
+    @Description("Cоздание заказов с разными комбинациями цветов (BLACK, GREY, BLACK and GREY, null)")
     public void testOrderCreationWithColorVariations() {
         order = generateRandomOrder().setColor(colors);
         trackNumber = orderSteps.createOrder(order)

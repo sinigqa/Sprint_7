@@ -1,5 +1,6 @@
 package ru.praktikum_services.qa_scooter.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.example.model.Courier;
@@ -26,6 +27,7 @@ public class CourierLoginTests extends BaseTest {
 
     @Test
     @DisplayName("Успешная авторизация с валидными данными")
+    @Description("Вход в систему с корректными логином и паролем")
     public void testSuccessfulLogin() {
         courierSteps.loginCourier(validCourier)
                 .statusCode(200)
@@ -34,6 +36,7 @@ public class CourierLoginTests extends BaseTest {
 
     @Test
     @DisplayName("Авторизация без логина")
+    @Description("Попытка входа без указания логина")
     public void testLoginWithoutLogin() {
         Courier courierWithoutLogin = new Courier()
                 .setLogin(null)
@@ -46,6 +49,7 @@ public class CourierLoginTests extends BaseTest {
 
     @Test
     @DisplayName("Авторизация без пароля")
+    @Description("Попытка входа без указания пароля")
     public void testLoginWithoutPassword() {
         Courier courierWithoutPassword = new Courier()
                 .setLogin(originalLogin)
@@ -58,6 +62,7 @@ public class CourierLoginTests extends BaseTest {
 
     @Test
     @DisplayName("Авторизация с неверным логином")
+    @Description("Попытка входа с несуществующим логином")
     public void testLoginWithWrongLogin() {
         Courier courierWithWrongLogin = new Courier()
                 .setLogin(RandomStringUtils.randomAlphabetic(10))
@@ -70,6 +75,7 @@ public class CourierLoginTests extends BaseTest {
 
     @Test
     @DisplayName("Авторизация с неверным паролем")
+    @Description("Попытка входа с некорректным паролем")
     public void testLoginWithWrongPassword() {
         Courier courierWithWrongPassword = new Courier()
                 .setLogin(originalLogin)
@@ -82,6 +88,7 @@ public class CourierLoginTests extends BaseTest {
 
     @Test
     @DisplayName("Авторизация без логина и пароля")
+    @Description("Попытка входа без указания учетных данных")
     public void testLoginWithoutCredentials() {
         Courier emptyCourier = new Courier()
                 .setLogin(null)

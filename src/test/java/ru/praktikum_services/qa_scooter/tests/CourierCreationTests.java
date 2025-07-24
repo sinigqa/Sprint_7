@@ -1,5 +1,6 @@
 package ru.praktikum_services.qa_scooter.tests;
 
+import io.qameta.allure.Description;
 import io.qameta.allure.junit4.DisplayName;
 import org.example.model.Courier;
 import org.junit.Test;
@@ -12,6 +13,7 @@ public class CourierCreationTests extends BaseTest {
 
     @Test
     @DisplayName("Курьер может быть создан")
+    @Description("Создание курьера с валидными данными (логин, пароль, имя)")
     public void testCourierCanBeCreated(){
         courier = generateRandomCourier();
 
@@ -22,6 +24,7 @@ public class CourierCreationTests extends BaseTest {
 
     @Test
     @DisplayName("Курьер может быть создан без имени")
+    @Description("Создание курьера без указания имени (необязательное поле)")
     public void testCourierCanBeCreatedWithoutFirstName(){
         courier = generateRandomCourier()
                 .setFirstName(null);
@@ -33,6 +36,7 @@ public class CourierCreationTests extends BaseTest {
 
     @Test
     @DisplayName("Невозможно создать курьера без логина")
+    @Description("Попытка создания курьера без обязательного поля 'логин'")
     public void testCourierCannotBeCreatedWithoutLogin(){
         courier = generateRandomCourier()
                 .setLogin(null);
@@ -44,6 +48,7 @@ public class CourierCreationTests extends BaseTest {
 
     @Test
     @DisplayName("Невозможно создать курьера без пароля")
+    @Description("Попытка создания курьера без обязательного поля 'пароль'")
     public void testCourierCannotBeCreatedWithoutPassword(){
         courier = generateRandomCourier()
                 .setPassword(null);
@@ -55,6 +60,7 @@ public class CourierCreationTests extends BaseTest {
 
     @Test
     @DisplayName("Невозможно создать курьеров с одинаковым логином")
+    @Description("Попытка создания дубликата курьера с существующим логином")
     public void testCannotCreateCourierWithExistingLogin(){
         courier = generateRandomCourier();
         courierSteps.createCourier(courier);
