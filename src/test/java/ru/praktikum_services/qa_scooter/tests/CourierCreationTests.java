@@ -6,6 +6,7 @@ import org.example.model.Courier;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
+import static org.apache.http.HttpStatus.*;
 
 public class CourierCreationTests extends BaseTest {
 
@@ -18,7 +19,7 @@ public class CourierCreationTests extends BaseTest {
         courier = generateRandomCourier();
 
         courierSteps.createCourier(courier)
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("ok", is(true));
     }
 
@@ -30,7 +31,7 @@ public class CourierCreationTests extends BaseTest {
                 .setFirstName(null);
 
         courierSteps.createCourier(courier)
-                .statusCode(201)
+                .statusCode(SC_CREATED)
                 .body("ok", is(true));
     }
 
@@ -42,7 +43,7 @@ public class CourierCreationTests extends BaseTest {
                 .setLogin(null);
 
         courierSteps.createCourier(courier)
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
@@ -54,7 +55,7 @@ public class CourierCreationTests extends BaseTest {
                 .setPassword(null);
 
         courierSteps.createCourier(courier)
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 
@@ -69,7 +70,7 @@ public class CourierCreationTests extends BaseTest {
                 .setLogin(courier.getLogin());
 
         courierSteps.createCourier(duplicateLogin)
-                .statusCode(409)
+                .statusCode(SC_CONFLICT)
                 .body("message", equalTo("Этот логин уже используется"));
     }
 

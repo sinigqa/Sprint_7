@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.hamcrest.Matchers.*;
+import static org.apache.http.HttpStatus.*;
 
 public class CourierLoginTests extends BaseTest {
 
@@ -30,7 +31,7 @@ public class CourierLoginTests extends BaseTest {
     @Description("Вход в систему с корректными логином и паролем")
     public void testSuccessfulLogin() {
         courierSteps.loginCourier(validCourier)
-                .statusCode(200)
+                .statusCode(SC_OK)
                 .body("id", notNullValue());
     }
 
@@ -43,7 +44,7 @@ public class CourierLoginTests extends BaseTest {
                 .setPassword(originalPassword);
 
         courierSteps.loginCourier(courierWithoutLogin)
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
 
@@ -56,7 +57,7 @@ public class CourierLoginTests extends BaseTest {
                 .setPassword(null);
 
         courierSteps.loginCourier(courierWithoutPassword)
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
 
@@ -69,7 +70,7 @@ public class CourierLoginTests extends BaseTest {
                 .setPassword(originalPassword);
 
         courierSteps.loginCourier(courierWithWrongLogin)
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
@@ -82,7 +83,7 @@ public class CourierLoginTests extends BaseTest {
                 .setPassword(RandomStringUtils.randomAlphanumeric(10));
 
         courierSteps.loginCourier(courierWithWrongPassword)
-                .statusCode(404)
+                .statusCode(SC_NOT_FOUND)
                 .body("message", equalTo("Учетная запись не найдена"));
     }
 
@@ -95,7 +96,7 @@ public class CourierLoginTests extends BaseTest {
                 .setPassword(null);
 
         courierSteps.loginCourier(emptyCourier)
-                .statusCode(400)
+                .statusCode(SC_BAD_REQUEST)
                 .body("message", equalTo("Недостаточно данных для входа"));
     }
 }
